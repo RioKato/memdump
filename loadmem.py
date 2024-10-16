@@ -59,13 +59,14 @@ def add_xrefs():
     ea = 0
     while ea < BADADDR:
         if xref := instpat(ea):
-            add_dref(ea, xref, dr_R)
+            add_dref(ea, xref, dr_R)  # (R)ead
 
         ea = next_head(ea)
 
 
 def main():
     load_modules()
+    add_xrefs()
 
 
 if __name__ == '__main__':
