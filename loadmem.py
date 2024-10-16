@@ -21,7 +21,7 @@ def create_segm(start_ea: int, protection: str, name: str, data: bytes):
     patch_bytes(start_ea, data)
 
 
-def main():
+def load_modules():
     from contextlib import suppress
     from json import load
 
@@ -44,6 +44,28 @@ def main():
             with open(file, 'rb') as fp:
                 data = fp.read()
                 create_segm(start_ea, protection, name, data)
+
+
+def instpat(ea: int) -> int:
+    from idc import generate_disasm_line, GENDSM_FORCE_CODE
+
+    line = generate_disasm_line(ea, GENDSM_FORCE_CODE)
+    return True
+
+
+def add_xrefs():
+    from idc import BADADDR, next_head, add_dref, dr_R
+
+    ea = 0
+    while ea < BADADDR:
+        if xref := instpat(ea):
+            add_dref(ea, xref, dr_R)
+
+        ea = next_head(ea)
+
+
+def main():
+    load_modules()
 
 
 if __name__ == '__main__':

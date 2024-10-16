@@ -45,7 +45,3 @@ function writeFile(path, data) {
   file.write(data);
   file.close();
 }
-
-
-startup('test', 0x1169);
-
