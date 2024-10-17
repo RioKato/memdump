@@ -45,3 +45,9 @@ function writeFile(path, data) {
   file.write(data);
   file.close();
 }
+
+rpc.exports = {
+  init(stage, params) {
+    startup(params.lib, params.off);
+  }
+}
