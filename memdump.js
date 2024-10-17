@@ -49,7 +49,7 @@ function memdump(addr, path) {
 }
 
 function writeFile(path, data) {
-  console.log(path);
+  console.log(`write dump data to ${path}`);
   const file = new File(path, 'wb');
   file.write(data);
   file.close();
